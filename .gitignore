@@ -1,2 +1,10 @@
-/bin
-/obj
+# Visual Studio cache and build files
+.vs/
+*.vsidx
+*.vscode
+bin/
+obj/
+*.suo
+*.user
+*.rsuser
+*.sln.docstates

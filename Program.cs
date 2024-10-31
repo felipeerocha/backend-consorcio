@@ -6,6 +6,24 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configuração de CORS para múltiplas URLs
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins(
+                "http://localhost:9001",
+                "http://localhost:9002",
+                "http://localhost:9003",
+                "http://localhost:9004",
+                "http://localhost:9005"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        });
+});
+
 // Add services to the container.
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -13,7 +31,7 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Configuração do Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -45,6 +63,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// Configuração do DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -53,7 +72,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Configurar autenticação
 builder.Services.AddAuthentication("BasicAuthentication")
     .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
-
 
 var app = builder.Build();
 
@@ -65,6 +83,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowFrontend"); // Ativando a política de CORS
 
 app.UseAuthentication();
 

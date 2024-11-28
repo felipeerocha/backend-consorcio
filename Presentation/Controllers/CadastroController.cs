@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using back_end.Infrastructure.Data;
 using back_end.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace back_end.API.Controllers
 {
@@ -47,11 +50,13 @@ namespace back_end.API.Controllers
                 return BadRequest("Cota não encontrada.");
             }
 
-            cota.Status = "Ocupada";  
+            cota.Status = "Ocupada";
             _context.Entry(cota).State = EntityState.Modified;
 
             cadastro.DataCadastro = DateTime.Now.Date;
             cadastro.NumeroCota = cota.NumeroCota;
+            cadastro.Tipo = cota.Tipo;
+            cadastro.Valor = cota.Valor;
 
             _context.Cadastros.Add(cadastro);
             await _context.SaveChangesAsync();
@@ -59,16 +64,17 @@ namespace back_end.API.Controllers
             return CreatedAtAction(nameof(GetCadastro), new { id = cadastro.Id }, cadastro);
         }
 
-
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCadastro(int id, [FromBody] Cadastro cadastro)
         {
+            // Busca o cadastro existente no banco de dados
             var existingCadastro = await _context.Cadastros.FindAsync(id);
             if (existingCadastro == null)
             {
-                return NotFound();
+                return NotFound(); // Retorna 404 caso não encontre o cadastro
             }
 
+            // Atualiza apenas os campos permitidos
             if (!string.IsNullOrEmpty(cadastro.NomeUsuario))
             {
                 existingCadastro.NomeUsuario = cadastro.NomeUsuario;
@@ -84,10 +90,12 @@ namespace back_end.API.Controllers
                 existingCadastro.Parcelamento = cadastro.Parcelamento;
             }
 
+            // Salva as alterações no banco de dados
             await _context.SaveChangesAsync();
-            return NoContent();
-        }
 
+            // Retorna o objeto atualizado
+            return Ok(existingCadastro); // Retorna 200 com o objeto atualizado
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCadastro(int id)
@@ -101,7 +109,7 @@ namespace back_end.API.Controllers
             var cota = await _context.Cotas.FindAsync(cadastro.CotaId);
             if (cota != null)
             {
-                cota.Status = "Disponível";  
+                cota.Status = "Disponível";
                 _context.Entry(cota).State = EntityState.Modified;
             }
 

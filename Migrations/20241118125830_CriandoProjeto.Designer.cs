@@ -12,8 +12,8 @@ using back_end.Infrastructure.Data;
 namespace back_end.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241022212318_CriandoDb")]
-    partial class CriandoDb
+    [Migration("20241118125830_CriandoProjeto")]
+    partial class CriandoProjeto
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,11 +39,10 @@ namespace back_end.Migrations
                     b.Property<int>("CotaId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DataCadastro")
+                    b.Property<DateTime?>("DataCadastro")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("NomeUsuario")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NumeroCota")
@@ -51,6 +50,12 @@ namespace back_end.Migrations
 
                     b.Property<string>("Parcelamento")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tipo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -125,7 +130,9 @@ namespace back_end.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tipo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Valor")
@@ -142,240 +149,270 @@ namespace back_end.Migrations
                         {
                             Id = 1,
                             ConsorcioId = 1,
-                            NumeroCota = 6430,
+                            NumeroCota = 8107,
                             Status = "Disponível",
+                            Tipo = "Imovel",
                             Valor = 50000m
                         },
                         new
                         {
                             Id = 11,
                             ConsorcioId = 2,
-                            NumeroCota = 6430,
+                            NumeroCota = 8107,
                             Status = "Disponível",
+                            Tipo = "Carro",
                             Valor = 20000m
                         },
                         new
                         {
                             Id = 21,
                             ConsorcioId = 3,
-                            NumeroCota = 6430,
+                            NumeroCota = 8107,
                             Status = "Disponível",
+                            Tipo = "Serviço",
                             Valor = 7000m
                         },
                         new
                         {
                             Id = 2,
                             ConsorcioId = 1,
-                            NumeroCota = 5497,
+                            NumeroCota = 2412,
                             Status = "Disponível",
+                            Tipo = "Imovel",
                             Valor = 50000m
                         },
                         new
                         {
                             Id = 12,
                             ConsorcioId = 2,
-                            NumeroCota = 5497,
+                            NumeroCota = 2412,
                             Status = "Disponível",
+                            Tipo = "Carro",
                             Valor = 20000m
                         },
                         new
                         {
                             Id = 22,
                             ConsorcioId = 3,
-                            NumeroCota = 5497,
+                            NumeroCota = 2412,
                             Status = "Disponível",
+                            Tipo = "Serviço",
                             Valor = 7000m
                         },
                         new
                         {
                             Id = 3,
                             ConsorcioId = 1,
-                            NumeroCota = 2487,
+                            NumeroCota = 9360,
                             Status = "Disponível",
+                            Tipo = "Imovel",
                             Valor = 50000m
                         },
                         new
                         {
                             Id = 13,
                             ConsorcioId = 2,
-                            NumeroCota = 2487,
+                            NumeroCota = 9360,
                             Status = "Disponível",
+                            Tipo = "Carro",
                             Valor = 20000m
                         },
                         new
                         {
                             Id = 23,
                             ConsorcioId = 3,
-                            NumeroCota = 2487,
+                            NumeroCota = 9360,
                             Status = "Disponível",
+                            Tipo = "Serviço",
                             Valor = 7000m
                         },
                         new
                         {
                             Id = 4,
                             ConsorcioId = 1,
-                            NumeroCota = 9966,
+                            NumeroCota = 9281,
                             Status = "Disponível",
+                            Tipo = "Imovel",
                             Valor = 50000m
                         },
                         new
                         {
                             Id = 14,
                             ConsorcioId = 2,
-                            NumeroCota = 9966,
+                            NumeroCota = 9281,
                             Status = "Disponível",
+                            Tipo = "Carro",
                             Valor = 20000m
                         },
                         new
                         {
                             Id = 24,
                             ConsorcioId = 3,
-                            NumeroCota = 9966,
+                            NumeroCota = 9281,
                             Status = "Disponível",
+                            Tipo = "Serviço",
                             Valor = 7000m
                         },
                         new
                         {
                             Id = 5,
                             ConsorcioId = 1,
-                            NumeroCota = 9084,
+                            NumeroCota = 5258,
                             Status = "Disponível",
+                            Tipo = "Imovel",
                             Valor = 50000m
                         },
                         new
                         {
                             Id = 15,
                             ConsorcioId = 2,
-                            NumeroCota = 9084,
+                            NumeroCota = 5258,
                             Status = "Disponível",
+                            Tipo = "Carro",
                             Valor = 20000m
                         },
                         new
                         {
                             Id = 25,
                             ConsorcioId = 3,
-                            NumeroCota = 9084,
+                            NumeroCota = 5258,
                             Status = "Disponível",
+                            Tipo = "Serviço",
                             Valor = 7000m
                         },
                         new
                         {
                             Id = 6,
                             ConsorcioId = 1,
-                            NumeroCota = 4753,
+                            NumeroCota = 1047,
                             Status = "Disponível",
+                            Tipo = "Imovel",
                             Valor = 50000m
                         },
                         new
                         {
                             Id = 16,
                             ConsorcioId = 2,
-                            NumeroCota = 4753,
+                            NumeroCota = 1047,
                             Status = "Disponível",
+                            Tipo = "Carro",
                             Valor = 20000m
                         },
                         new
                         {
                             Id = 26,
                             ConsorcioId = 3,
-                            NumeroCota = 4753,
+                            NumeroCota = 1047,
                             Status = "Disponível",
+                            Tipo = "Serviço",
                             Valor = 7000m
                         },
                         new
                         {
                             Id = 7,
                             ConsorcioId = 1,
-                            NumeroCota = 7110,
+                            NumeroCota = 5342,
                             Status = "Disponível",
+                            Tipo = "Imovel",
                             Valor = 50000m
                         },
                         new
                         {
                             Id = 17,
                             ConsorcioId = 2,
-                            NumeroCota = 7110,
+                            NumeroCota = 5342,
                             Status = "Disponível",
+                            Tipo = "Carro",
                             Valor = 20000m
                         },
                         new
                         {
                             Id = 27,
                             ConsorcioId = 3,
-                            NumeroCota = 7110,
+                            NumeroCota = 5342,
                             Status = "Disponível",
+                            Tipo = "Serviço",
                             Valor = 7000m
                         },
                         new
                         {
                             Id = 8,
                             ConsorcioId = 1,
-                            NumeroCota = 7501,
+                            NumeroCota = 7128,
                             Status = "Disponível",
+                            Tipo = "Imovel",
                             Valor = 50000m
                         },
                         new
                         {
                             Id = 18,
                             ConsorcioId = 2,
-                            NumeroCota = 7501,
+                            NumeroCota = 7128,
                             Status = "Disponível",
+                            Tipo = "Carro",
                             Valor = 20000m
                         },
                         new
                         {
                             Id = 28,
                             ConsorcioId = 3,
-                            NumeroCota = 7501,
+                            NumeroCota = 7128,
                             Status = "Disponível",
+                            Tipo = "Serviço",
                             Valor = 7000m
                         },
                         new
                         {
                             Id = 9,
                             ConsorcioId = 1,
-                            NumeroCota = 8048,
+                            NumeroCota = 4714,
                             Status = "Disponível",
+                            Tipo = "Imovel",
                             Valor = 50000m
                         },
                         new
                         {
                             Id = 19,
                             ConsorcioId = 2,
-                            NumeroCota = 8048,
+                            NumeroCota = 4714,
                             Status = "Disponível",
+                            Tipo = "Carro",
                             Valor = 20000m
                         },
                         new
                         {
                             Id = 29,
                             ConsorcioId = 3,
-                            NumeroCota = 8048,
+                            NumeroCota = 4714,
                             Status = "Disponível",
+                            Tipo = "Serviço",
                             Valor = 7000m
                         },
                         new
                         {
                             Id = 10,
                             ConsorcioId = 1,
-                            NumeroCota = 5322,
+                            NumeroCota = 4249,
                             Status = "Disponível",
+                            Tipo = "Imovel",
                             Valor = 50000m
                         },
                         new
                         {
                             Id = 20,
                             ConsorcioId = 2,
-                            NumeroCota = 5322,
+                            NumeroCota = 4249,
                             Status = "Disponível",
+                            Tipo = "Carro",
                             Valor = 20000m
                         },
                         new
                         {
                             Id = 30,
                             ConsorcioId = 3,
-                            NumeroCota = 5322,
+                            NumeroCota = 4249,
                             Status = "Disponível",
+                            Tipo = "Serviço",
                             Valor = 7000m
                         });
                 });

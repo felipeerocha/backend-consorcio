@@ -42,6 +42,7 @@ namespace back_end.Infrastructure.Data
                     Id = i + 1,
                     ConsorcioId = 1,
                     NumeroCota = numeroCota,
+                    Tipo = "Imovel",
                     Valor = 50000,
                     Status = "Disponível"
                 });
@@ -51,6 +52,7 @@ namespace back_end.Infrastructure.Data
                     Id = i + 11,
                     ConsorcioId = 2,
                     NumeroCota = numeroCota,
+                    Tipo="Carro",
                     Valor = 20000,
                     Status = "Disponível"
                 });
@@ -60,6 +62,7 @@ namespace back_end.Infrastructure.Data
                     Id = i + 21,
                     ConsorcioId = 3,
                     NumeroCota = numeroCota,
+                    Tipo = "Serviço",
                     Valor = 7000,
                     Status = "Disponível"
                 });

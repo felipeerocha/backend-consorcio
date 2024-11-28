@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace back_end.Migrations
 {
     /// <inheritdoc />
-    public partial class CriandoDb : Migration
+    public partial class CriandoProjeto : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,7 +38,8 @@ namespace back_end.Migrations
                     ConsorcioId = table.Column<int>(type: "int", nullable: false),
                     NumeroCota = table.Column<int>(type: "int", nullable: false),
                     Valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Tipo = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,10 +60,12 @@ namespace back_end.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CotaId = table.Column<int>(type: "int", nullable: false),
                     NumeroCota = table.Column<int>(type: "int", nullable: false),
-                    NomeUsuario = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NomeUsuario = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Contato = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Parcelamento = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Tipo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -87,39 +90,39 @@ namespace back_end.Migrations
 
             migrationBuilder.InsertData(
                 table: "Cotas",
-                columns: new[] { "Id", "ConsorcioId", "NumeroCota", "Status", "Valor" },
+                columns: new[] { "Id", "ConsorcioId", "NumeroCota", "Status", "Tipo", "Valor" },
                 values: new object[,]
                 {
-                    { 1, 1, 6430, "Disponível", 50000m },
-                    { 2, 1, 5497, "Disponível", 50000m },
-                    { 3, 1, 2487, "Disponível", 50000m },
-                    { 4, 1, 9966, "Disponível", 50000m },
-                    { 5, 1, 9084, "Disponível", 50000m },
-                    { 6, 1, 4753, "Disponível", 50000m },
-                    { 7, 1, 7110, "Disponível", 50000m },
-                    { 8, 1, 7501, "Disponível", 50000m },
-                    { 9, 1, 8048, "Disponível", 50000m },
-                    { 10, 1, 5322, "Disponível", 50000m },
-                    { 11, 2, 6430, "Disponível", 20000m },
-                    { 12, 2, 5497, "Disponível", 20000m },
-                    { 13, 2, 2487, "Disponível", 20000m },
-                    { 14, 2, 9966, "Disponível", 20000m },
-                    { 15, 2, 9084, "Disponível", 20000m },
-                    { 16, 2, 4753, "Disponível", 20000m },
-                    { 17, 2, 7110, "Disponível", 20000m },
-                    { 18, 2, 7501, "Disponível", 20000m },
-                    { 19, 2, 8048, "Disponível", 20000m },
-                    { 20, 2, 5322, "Disponível", 20000m },
-                    { 21, 3, 6430, "Disponível", 7000m },
-                    { 22, 3, 5497, "Disponível", 7000m },
-                    { 23, 3, 2487, "Disponível", 7000m },
-                    { 24, 3, 9966, "Disponível", 7000m },
-                    { 25, 3, 9084, "Disponível", 7000m },
-                    { 26, 3, 4753, "Disponível", 7000m },
-                    { 27, 3, 7110, "Disponível", 7000m },
-                    { 28, 3, 7501, "Disponível", 7000m },
-                    { 29, 3, 8048, "Disponível", 7000m },
-                    { 30, 3, 5322, "Disponível", 7000m }
+                    { 1, 1, 8107, "Disponível", "Imovel", 50000m },
+                    { 2, 1, 2412, "Disponível", "Imovel", 50000m },
+                    { 3, 1, 9360, "Disponível", "Imovel", 50000m },
+                    { 4, 1, 9281, "Disponível", "Imovel", 50000m },
+                    { 5, 1, 5258, "Disponível", "Imovel", 50000m },
+                    { 6, 1, 1047, "Disponível", "Imovel", 50000m },
+                    { 7, 1, 5342, "Disponível", "Imovel", 50000m },
+                    { 8, 1, 7128, "Disponível", "Imovel", 50000m },
+                    { 9, 1, 4714, "Disponível", "Imovel", 50000m },
+                    { 10, 1, 4249, "Disponível", "Imovel", 50000m },
+                    { 11, 2, 8107, "Disponível", "Carro", 20000m },
+                    { 12, 2, 2412, "Disponível", "Carro", 20000m },
+                    { 13, 2, 9360, "Disponível", "Carro", 20000m },
+                    { 14, 2, 9281, "Disponível", "Carro", 20000m },
+                    { 15, 2, 5258, "Disponível", "Carro", 20000m },
+                    { 16, 2, 1047, "Disponível", "Carro", 20000m },
+                    { 17, 2, 5342, "Disponível", "Carro", 20000m },
+                    { 18, 2, 7128, "Disponível", "Carro", 20000m },
+                    { 19, 2, 4714, "Disponível", "Carro", 20000m },
+                    { 20, 2, 4249, "Disponível", "Carro", 20000m },
+                    { 21, 3, 8107, "Disponível", "Serviço", 7000m },
+                    { 22, 3, 2412, "Disponível", "Serviço", 7000m },
+                    { 23, 3, 9360, "Disponível", "Serviço", 7000m },
+                    { 24, 3, 9281, "Disponível", "Serviço", 7000m },
+                    { 25, 3, 5258, "Disponível", "Serviço", 7000m },
+                    { 26, 3, 1047, "Disponível", "Serviço", 7000m },
+                    { 27, 3, 5342, "Disponível", "Serviço", 7000m },
+                    { 28, 3, 7128, "Disponível", "Serviço", 7000m },
+                    { 29, 3, 4714, "Disponível", "Serviço", 7000m },
+                    { 30, 3, 4249, "Disponível", "Serviço", 7000m }
                 });
 
             migrationBuilder.CreateIndex(

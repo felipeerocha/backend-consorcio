@@ -33,27 +33,16 @@ namespace back_end.Infrastructure.Services
             }
 
             var credentials = Encoding.UTF8.GetString(Convert.FromBase64String(authHeader.Substring("Basic ".Length))).Split(':', 2);
-
             var username = credentials[0];
             var numeroCotaInformado = credentials[1];
 
-            // Verifica se o cadastro existe
+            // Verifica se o cadastro existe e pertence ao usuário autenticado
             var validCadastro = await _context.Cadastros
                 .FirstOrDefaultAsync(c => c.NomeUsuario == username && c.NumeroCota.ToString() == numeroCotaInformado);
 
             // Se o cadastro não existir, falha na autenticação
             if (validCadastro == null)
             {
-                if (Request.Method == "GET" && Request.Path.StartsWithSegments("/api/Cadastro"))
-                {
-                    Response.OnStarting(() =>
-                    {
-                        Response.StatusCode = StatusCodes.Status401Unauthorized;
-                        Response.ContentType = "application/json";
-                        return Response.WriteAsync("{\"error\":\"Esse usuário não possui cadastro nessa cota.\"}");
-                    });
-                }
-
                 return AuthenticateResult.Fail("Esse usuário não possui cadastro nessa cota.");
             }
 

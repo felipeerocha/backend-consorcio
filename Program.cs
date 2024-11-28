@@ -6,18 +6,26 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuração de CORS para múltiplas URLs
+// Configuração de CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend",
+    // Opção 1: Permitir todas as origens (para desenvolvimento)
+    options.AddPolicy("AllowAll",
         policy =>
         {
-            policy.WithOrigins(
-                "http://localhost:9001",
-                "http://localhost:9002",
-                "http://localhost:9003",
-                "http://localhost:9004",
-                "http://localhost:9005"
+            policy.AllowAnyOrigin()
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+
+    // Opção 2: Permitir URLs dinâmicas específicas com base no padrão (localhost:9000-9005)
+    options.AddPolicy("AllowDynamicLocalhost",
+        policy =>
+        {
+            policy.SetIsOriginAllowed(origin =>
+                origin.StartsWith("http://localhost:") &&
+                int.TryParse(origin.Split(':').Last(), out int port) &&
+                port >= 9000 && port <= 9010
             )
             .AllowAnyHeader()
             .AllowAnyMethod();
@@ -84,7 +92,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowFrontend"); // Ativando a política de CORS
+// Use a política de CORS escolhida
+// Descomente uma das linhas abaixo de acordo com a necessidade:
+
+// Para permitir todas as origens (apenas para desenvolvimento):
+// app.UseCors("AllowAll");
+
+// Para permitir apenas URLs dinâmicas específicas (localhost:9000 a 9005):
+app.UseCors("AllowDynamicLocalhost");
 
 app.UseAuthentication();
 
